@@ -40,8 +40,14 @@ public class GsonPostRepositoryImpl  implements PostRepository{
     @Override
     public Post save(Post post) {
         List<Post> posts = getAll();
-        post.setId(posts.size());
-        posts.add(post);
+        if (posts != null) {
+            post.setId(posts.size());
+            posts.add(post);
+        }
+        else {
+            post.setId(0);
+            posts = List.of(post);
+        }
         saveToFile(posts);
         return post;
     }

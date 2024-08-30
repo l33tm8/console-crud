@@ -41,8 +41,14 @@ public class GsonWriterRepositoryImpl implements WriterRepository {
     @Override
     public Writer save(Writer writer) {
         List<Writer> writers = getAll();
-        writer.setId(writers.size());
-        writers.add(writer);
+        if (writers != null) {
+            writer.setId(writers.size());
+            writers.add(writer);
+        }
+        else {
+            writer.setId(0);
+            writers = List.of(writer);
+        }
         saveToFile(writers);
         return writer;
     }

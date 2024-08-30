@@ -41,10 +41,15 @@ public class GsonLabelRepositoryImpl implements LabelRepository {
     @Override
     public Label save(Label label) {
         List<Label> labels = getAll();
-        int id = labels.size();
-        label.setId(id);
-        labels.add(label);
-
+        if (labels != null) {
+            int id = labels.size();
+            label.setId(id);
+            labels.add(label);
+        }
+        else {
+            label.setId(0);
+            labels = List.of(label);
+        }
         saveToFile(labels);
         return label;
     }

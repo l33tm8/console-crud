@@ -32,13 +32,11 @@ public class WriterController implements Controller {
     public void createModel() {
         String firstName = view.getName();
         String lastName = view.getLastName();
-        int id = repository.getAll().size();
         Writer writer = new Writer();
-        writer.setId(id);
         writer.setFirstName(firstName);
         writer.setLastName(lastName);
-        repository.save(writer);
-        view.save(id);
+        writer = repository.save(writer);
+        view.save(writer.getId());
 
     }
 
